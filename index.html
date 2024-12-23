@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with Dynamic View and PDF Generation</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        body {
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        Form
+                    </div>
+                    <div class="card-body">
+                        <!-- <form id="userForm">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="generatePDF">Generate PDF</button>
+                        </form> -->
+                        <div class="container mt-5">
+                            <h2 class="mb-4">Patient Evaluation Form</h2>
+                            <form>
+                                <!-- Patient Full Name -->
+                                <div class="mb-3">
+                                    <label for="patientFullName" class="form-label">Patient Full Name</label>
+                                    <input type="text" class="form-control" id="patientFullName"
+                                        placeholder="Enter patient's full name" required>
+                                </div>
+
+                                <!-- Patient DOB -->
+                                <div class="mb-3">
+                                    <label for="patientDOB" class="form-label">Date of Birth</label>
+                                    <input type="date" class="form-control" id="patientDOB" required>
+                                </div>
+
+                                <!-- Evaluation Date -->
+                                <div class="mb-3">
+                                    <label for="evaluationDate" class="form-label">Evaluation Date</label>
+                                    <input type="date" class="form-control" id="evaluationDate" required>
+                                </div>
+
+                                <!-- Doctor Name Dropdown -->
+                                <div class="mb-3">
+                                    <label for="doctorName" class="form-label">Doctor Name</label>
+                                    <select class="form-select" id="doctorName" required>
+                                        <option value="" disabled selected>Select Doctor</option>
+                                        <option value="Dr. Smith">Dr. Smith</option>
+                                        <option value="Dr. Johnson">Dr. Johnson</option>
+                                        <option value="Dr. Lee">Dr. Lee</option>
+                                    </select>
+                                </div>
+
+                                <!-- Diagnosis Dropdown -->
+                                <div class="mb-3">
+                                    <label for="diagnosis" class="form-label">Diagnosis</label>
+                                    <select class="form-select" id="diagnosis" required>
+                                        <option value="" disabled selected>Select Diagnosis</option>
+                                        <option value="F41.1">F41.1 - GAD</option>
+                                        <option value="F32.1">F32.1 - MDD</option>
+                                        <option value="F41.3">F41.3 - Panic Attack</option>
+                                        <option value="F42.9">F42.9 OCD</option>
+                                    </select>
+                                </div>
+
+                                 <!-- Notes Temp Dropdown -->
+                                 <div class="mb-3">
+                                    <label for="notes_temp" class="form-label">Notes Template</label>
+                                    <select class="form-select" id="notes_temp" required>
+                                        <option value="" disabled selected>Select Templates</option>
+                                        <option value="F41.1">GAD & Panic Attacks</option>
+                                        <option value="F32.1">Major Depressive</option>
+                                        
+                                    </select>
+                                </div>
+
+                                <!-- Notes -->
+                                <div class="mb-3">
+                                    <label for="notes" class="form-label">Notes</label>
+                                    <textarea class="form-control" id="notes" rows="4"
+                                        placeholder="Enter notes here..."></textarea>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <button type="submit" class="btn btn-primary" id="generatePDF">Submit</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Live View
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Live View</h5>
+                        <hr>
+                        <div class="row">
+                            <h1>
+                                Medical Report
+                            </h1>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <p>
+                                <strong>Patient Full Name</strong>
+                                <span id="viewName"></span>
+                            </p>
+                            <p>
+                                <strong>DOB</strong>
+                                <span id="viewdob"></span>
+                            </p>
+                            <p>
+                                <strong>Evaluation Date</strong>
+                                <span id="viewEvDate"></span>
+                            </p>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <p>
+                                <strong>Doctor Name</strong>
+                                <span id="viewDoc"></span>
+                            </p>
+                            <p>
+                                <strong>Diagnosis</strong>
+                                <span id="viewDiag"></span>
+                            </p>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div>
+                                <h4>Notes</h4>
+                            </div>
+                            <div>
+                                <p id="viewNotes">No Notes Available</p>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
