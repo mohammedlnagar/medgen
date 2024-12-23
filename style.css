@@ -1,0 +1,31 @@
+.live-view {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px 0;
+    position: relative;
+  }
+  
+  .report-content {
+    /* Ensure report content doesn't overlap with the reserved area */
+    margin-bottom: 100px; /* Adjust as needed */
+  }
+  
+  .signature-stamp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed #000;
+    padding-top: 20px;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  
+  .signature-stamp .stamp, 
+  .signature-stamp .signature {
+    width: 45%;
+    text-align: center;
+    height: 80px; /* Adjust height for space */
+    border: 1px solid #ccc; /* Optional: Visual guide */
+    line-height: 80px; /* Center text vertically */
+  }
+  
