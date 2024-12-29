@@ -14,61 +14,36 @@ $(document).ready(function () {
     "Dr. Mansour Assaf": "assets/stamps/Mansour Assaf.png",
     "Ms. Safia Malik": "assets/stamps/SAFIA.png",
     "Dr. Khaleel Hinkston": "assets/stamps/KHALEEL.png",
-
   };
 
   let diagnosisList = [
     {
       code: "F41.1",
-      template:
-        `
-
-Presenting Problem
-The mentioned patient presents with symptoms consistent with Generalized Anxiety Disorder (GAD) and other mixed anxiety disorders. they report persistent worry about various aspects of life, particularly academic performance and social interactions. The anxiety occurs more days than not and has significantly impaired daily functioning over the past six months.
-
-History
-[ ]
-
-Current Symptoms
-Emotional: Excessive worry.
-Behavioral: Avoidance of group discussions, hesitancy to participate in extracurricular activities, and procrastination.
-Physical: Recurrent headaches, stomachaches, muscle tension, and rapid heartbeat during stressful situations.
-Cognitive: Difficulty concentrating, racing thoughts, and overthinking minor details.
-Sleep: Frequent difficulty falling asleep, waking up during the night, and feeling unrested in the morning.
-
-Assessment Tools
-Generalized Anxiety Disorder 7-item (GAD-7) scale: 
-Result: Moderate to severe anxiety.
-Clinical interview: 
-Provides insights into their patterns of avoidance, worry, and emotional distress in response to perceived challenges.
-
-Assessment Results
-The GAD-7 score indicates moderate to severe anxiety, aligning with the diagnostic criteria for Generalized Anxiety Disorder (F41.1). CASI results suggest significant anxiety sensitivity, particularly regarding physical symptoms (e.g., palpitations) and social situations. Clinical findings further confirm pervasive anxiety impacting daily life and relationships.
-
-Treatment Goals
-Reduce overall anxiety levels within 8–12 weeks through evidence-based therapeutic techniques.
-Develop and reinforce coping strategies for managing symptoms during high-stress situations.
-Build confidence in social skills to enhance interactions with peers and authority figures.
-Establish a regular sleep routine to improve restfulness and energy levels.
-Alleviate physical symptoms (e.g., headaches, muscle tension) using relaxation techniques and mindfulness practices.
-
-Progress Summary
-They have shown gradual improvement since starting treatment:
-They have begun identifying and challenging anxious thought patterns using cognitive behavioral therapy (CBT) techniques.
-There is consistent practice of relaxation exercises, such as deep breathing and guided imagery, which have helped reduce physical symptoms during anxiety episodes.
-While they still struggles with avoiding stressful situations, their willingness to discuss and reflect on these patterns has improved.
-Overall, progress is steady, though more time is needed to achieve lasting changes in behavioral responses to anxiety triggers.
-
-Recommendations
-Continue weekly CBT sessions to build on cognitive restructuring and gradually expose them to anxiety-provoking scenarios in a controlled setting.
-Implement daily relaxation techniques, including diaphragmatic breathing and progressive muscle relaxation.
-Encourage family involvement through monthly family therapy sessions to provide support and foster understanding of his challenges.
-Collaborate with school staff to establish a supportive academic environment, including adjusted deadlines and a quiet space for high-stress periods like exams.
-Regularly reassess progress through follow-up evaluations using GAD-7 and other tools every four weeks.
-
-Prognosis
-With consistent adherence to therapy and engagement in recommended activities, patient’s prognosis is favorable. Gradual improvement in functional and emotional well-being is expected over the next two to three months.
-
+      template: `Chief Complaint:
+Primary Concern: Anxiety
+Presenting Issue:
+The patient reports ongoing generalized anxiety but has shown significant improvement in managing symptoms with new coping strategies. Ongoing treatment and monitoring are necessary for long-term stability.
+Mental Status Examination:
+•	Appearance & Behavior: Well-dressed, alert, oriented to time, place, person, and purpose.
+•	Mood: Describes mood as "good," showing improvement.
+•	Affect: Full range, emotionally flexible and appropriately expressive.
+Prognosis:
+Positive outlook due to improved coping skills and stable emotional state. Anxiety persists but is managed with medication and lifestyle changes. Continued treatment and follow-up are essential for maintaining stability.
+Risk Assessment:
+•	Suicidal Ideation: Denies suicidal thoughts.
+•	Self-Harm: No history of self-harm.
+•	Aggression: No history of aggression.
+•	Substance Misuse: Denies any substance misuse.
+Management Plan:
+•	Medication: Continue current regimen, monitor effectiveness.
+•	Lifestyle Modifications: Regular exercise, balanced diet, and adequate sleep.
+•	Follow-Up: Schedule within 30 days; contact sooner if symptoms worsen.
+Patient Education:
+•	Educated on medication adherence and potential side effects.
+•	Discussed the importance of exercise, diet, stress reduction (mindfulness, deep breathing), and therapy for managing anxiety.
+Plan for Next Session:
+•	Continue monitoring anxiety levels, adjust coping strategies as needed.
+•	Review medication effectiveness and make adjustments if necessary.
 `,
     },
     {
@@ -76,9 +51,6 @@ With consistent adherence to therapy and engagement in recommended activities, p
       template:
         "This is a template for the clients with Major Depressive Disorder",
     },
- 
- 
-   
   ];
 
   $("#patientFullName, #patientDOB, #evaluationDate, #notes").on(
@@ -88,9 +60,12 @@ With consistent adherence to therapy and engagement in recommended activities, p
     }
   );
 
-  $("#doctorName, #pri_diagnosis, #sec_diagnosis, #notes_temp").on("change", function () {
-    changeTemp();
-  });
+  $("#doctorName, #pri_diagnosis, #sec_diagnosis, #notes_temp").on(
+    "change",
+    function () {
+      changeTemp();
+    }
+  );
 
   // $("#generatePDF").on("click", function () {
   //   generatePDF();
@@ -132,7 +107,9 @@ With consistent adherence to therapy and engagement in recommended activities, p
 
     // $("#viewNotes").text(noteTemp);
     $("#viewDoc").text(docName);
-    $("#viewDiag").text(`Primary Diagnosis: ${pri_diagnosis} & Secondary Diagnosis: ${sec_diagnosis}`);
+    $("#viewDiag").text(
+      `Primary Diagnosis: ${pri_diagnosis} & Secondary Diagnosis: ${sec_diagnosis}`
+    );
   }
   async function generatePDF() {
     const { jsPDF } = window.jspdf;
@@ -164,7 +141,11 @@ With consistent adherence to therapy and engagement in recommended activities, p
 
     // Add doctor and diagnosis information
     doc.text(`Doctor Name: ${doctorName}`, 10, 60);
-    doc.text(`Primary Diagnosis: ${pri_diagnosis} & Secondary Diagnosis: ${sec_diagnosis}`, 10, 65);
+    doc.text(
+      `Primary Diagnosis: ${pri_diagnosis} & Secondary Diagnosis: ${sec_diagnosis}`,
+      10,
+      65
+    );
 
     // Add notes
     doc.setFontSize(12);
