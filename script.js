@@ -6,6 +6,14 @@ $(document).ready(function () {
   const doctorStamps = {
     "Ms. Aya Shafik": "assets/stamps/aya.png",
     "Ms. Chaanan Kaur": "assets/stamps/chaanan.png",
+    "Dr. Bassem Badr": "assets/stamps/DR BASSEM.png",
+    "Dr. Edma Naddaf": "assets/stamps/Edma Naddaf.png",
+    "Dr. Maryam Al Suwaidi": "assets/stamps/maryam alsuwaidi.png",
+    "Dr. Sravani Behara": "assets/stamps/sravani.png",
+    "Ms. Ritasha Varsani": "assets/stamps/Ritasha Varsani.png",
+    "Dr. Mansour Assaf": "assets/stamps/Mansour Assaf.png",
+    "Ms. Safia Malik": "assets/stamps/SAFIA.png",
+    "Dr. Khaleel Hinkston": "assets/stamps/KHALEEL.png",
 
   };
 
@@ -61,7 +69,6 @@ Regularly reassess progress through follow-up evaluations using GAD-7 and other 
 Prognosis
 With consistent adherence to therapy and engagement in recommended activities, patient’s prognosis is favorable. Gradual improvement in functional and emotional well-being is expected over the next two to three months.
 
-
 `,
     },
     {
@@ -69,36 +76,9 @@ With consistent adherence to therapy and engagement in recommended activities, p
       template:
         "This is a template for the clients with Major Depressive Disorder",
     },
-    {
-      code: "F32.1",
-      template:
-        "This is a template for the clients with Major Depressive Disorder",
-    },
-    {
-      code: "F32.1",
-      template:
-        "This is a template for the clients with Major Depressive Disorder",
-    },
-    {
-      code: "F32.1",
-      template:
-        "This is a template for the clients with Major Depressive Disorder",
-    },
-    {
-      code: "F32.1",
-      template:
-        "This is a template for the clients with Major Depressive Disorder",
-    },
-    {
-      code: "F32.1",
-      template:
-        "This is a template for the clients with Major Depressive Disorder",
-    },
-    {
-      code: "F32.1",
-      template:
-        "This is a template for the clients with Major Depressive Disorder",
-    },
+ 
+ 
+   
   ];
 
   $("#patientFullName, #patientDOB, #evaluationDate, #notes").on(
