@@ -10,7 +10,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="script.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -68,21 +67,68 @@
                                     <label for="doctorName" class="form-label">Doctor Name</label>
                                     <select class="form-select" id="doctorName" required>
                                         <option value="" disabled selected>Select Doctor</option>
-                                        <option value="Dr. Smith">Dr. Smith</option>
-                                        <option value="Dr. Johnson">Dr. Johnson</option>
+                                        <option value="Ms. Aya Shafik">Ms. Aya Shafik</option>
+                                        <option value="Ms. Chaanan Kaur">Ms. Chaanan Kaur</option>
                                         <option value="Dr. Lee">Dr. Lee</option>
                                     </select>
                                 </div>
 
                                 <!-- Diagnosis Dropdown -->
                                 <div class="mb-3">
-                                    <label for="diagnosis" class="form-label">Diagnosis</label>
-                                    <select class="form-select" id="diagnosis" required>
+                                    <label for="diagnosis" class="form-label">Primary Diagnosis</label>
+                                    <select class="form-select" id="pri_diagnosis" required>
                                         <option value="" disabled selected>Select Diagnosis</option>
-                                        <option value="F41.1">F41.1 - GAD</option>
+                                        <option value="F41.1">F41.1 - Generalized anxiety disorder</option>
                                         <option value="F32.1">F32.1 - MDD</option>
                                         <option value="F41.3">F41.3 - Panic Attack</option>
                                         <option value="F42.9">F42.9 OCD</option>
+                                        <option value=""></option>
+                                        <option value="F20.0">F20.0 - Paranoid schizophrenia</option>
+                                        <option value="F20.3">F20.3 - Undifferentiated schizophrenia</option>
+                                        <option value="F25">F25 - Schizoaffective disorders</option>
+                                        <option value="F32.2">F32.2 - Severe depressive episode without psychotic symptoms</option>
+                                        <option value="F32.3">F32.3 - Severe depressive episode with psychotic symptoms</option>
+                                        <option value="F31.3">F31.3 - Bipolar I disorder, current episode depressed</option>
+                                        <option value=""></option>
+                                        <option value="F42">F42 - Obsessive-compulsive disorder</option>
+                                        <option value="F43.2">F43.2 - Adjustment disorders</option>
+                                        <option value="F41.8">F41.8 - Other specified anxiety disorders</option>
+                                        <option value="F51.0">F51.0 - Insomnia</option>
+                                        <option value="F60.3">F60.3 - Borderline personality disorder</option>
+                                        <option value="F60.8">F60.8 - Other specific personality disorders</option>
+                                        <option value="F84.0">F84.0 - Autistic disorder</option>
+                                        <option value="F43.0">F43.0 - Acute stress reaction</option>
+                                        <option value="F43.1">F43.1 - Post-traumatic stress disorder (PTSD)</option>
+                                        <option value="F41.0">F41.0 - Panic disorder</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="diagnosis" class="form-label">Secondary Diagnosis</label>
+                                    <select class="form-select" id="sec_diagnosis" required>
+                                        <option value="" disabled selected>Select Diagnosis</option>
+                                        <option value="F41.1">F41.1 - Generalized anxiety disorder</option>
+                                        <option value="F32.1">F32.1 - MDD</option>
+                                        <option value="F41.3">F41.3 - Panic Attack</option>
+                                        <option value="F42.9">F42.9 OCD</option>
+                                        <option value=""></option>
+                                        <option value="F20.0">F20.0 - Paranoid schizophrenia</option>
+                                        <option value="F20.3">F20.3 - Undifferentiated schizophrenia</option>
+                                        <option value="F25">F25 - Schizoaffective disorders</option>
+                                        <option value="F32.2">F32.2 - Severe depressive episode without psychotic symptoms</option>
+                                        <option value="F32.3">F32.3 - Severe depressive episode with psychotic symptoms</option>
+                                        <option value="F31.3">F31.3 - Bipolar I disorder, current episode depressed</option>
+                                        <option value=""></option>
+                                        <option value="F42">F42 - Obsessive-compulsive disorder</option>
+                                        <option value="F43.2">F43.2 - Adjustment disorders</option>
+                                        <option value="F41.8">F41.8 - Other specified anxiety disorders</option>
+                                        <option value="F51.0">F51.0 - Insomnia</option>
+                                        <option value="F60.3">F60.3 - Borderline personality disorder</option>
+                                        <option value="F60.8">F60.8 - Other specific personality disorders</option>
+                                        <option value="F84.0">F84.0 - Autistic disorder</option>
+                                        <option value="F43.0">F43.0 - Acute stress reaction</option>
+                                        <option value="F43.1">F43.1 - Post-traumatic stress disorder (PTSD)</option>
+                                        <option value="F41.0">F41.0 - Panic disorder</option>
                                     </select>
                                 </div>
 
@@ -105,7 +151,7 @@
                                 </div>
 
                                 <!-- Submit Button -->
-                                <button type="submit" class="btn btn-primary" id="generatePDF">Submit</button>
+                                <button type="button" class="btn btn-primary" id="generatePDF">Submit</button>
                             </form>
                         </div>
 
@@ -168,9 +214,8 @@
                                 <p>Signature</p>
                             </div>
                             <div class="stamp">
-                                <p>Stamp</p>
+                                <img id="stamp-image" src="" alt="Stamp" style="display: none; max-height: 80px;" />
                             </div>
-
                         </div>
 
                     </div>
@@ -178,6 +223,9 @@
             </div>
         </div>
     </div>
+
+    <script src="script.js"></script>
+
 </body>
 
 </html>

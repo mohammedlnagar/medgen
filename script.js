@@ -1,24 +1,98 @@
 $(document).ready(function () {
-  $("#patientFullName, #patientDOB, #evaluationDate, #notes").on(
-    "input",
-    function () {
-      updateView();
-    }
-  );
-
-  $("#doctorName, #diagnosis, #notes_temp").on("change", function () {
-    changeTemp();
+  $("#generatePDF").on("click", function (event) {
+    event.preventDefault(); // Prevent the form from submitting
+    generatePDF(); // Call the custom function to generate the PDF
   });
+  const doctorStamps = {
+    "Ms. Aya Shafik": "assets/stamps/aya.png",
+    "Ms. Chaanan Kaur": "assets/stamps/chaanan.png",
 
-  $("#generatePDF").on("click", function () {
-    generatePDF();
-  });
+  };
 
   let diagnosisList = [
     {
       code: "F41.1",
       template:
-        "This is a template for the Generalized Anxiety Discordered clients",
+        `
+
+Presenting Problem
+The mentioned patient presents with symptoms consistent with Generalized Anxiety Disorder (GAD) and other mixed anxiety disorders. they report persistent worry about various aspects of life, particularly academic performance and social interactions. The anxiety occurs more days than not and has significantly impaired daily functioning over the past six months.
+
+History
+[ ]
+
+Current Symptoms
+Emotional: Excessive worry.
+Behavioral: Avoidance of group discussions, hesitancy to participate in extracurricular activities, and procrastination.
+Physical: Recurrent headaches, stomachaches, muscle tension, and rapid heartbeat during stressful situations.
+Cognitive: Difficulty concentrating, racing thoughts, and overthinking minor details.
+Sleep: Frequent difficulty falling asleep, waking up during the night, and feeling unrested in the morning.
+
+Assessment Tools
+Generalized Anxiety Disorder 7-item (GAD-7) scale: 
+Result: Moderate to severe anxiety.
+Clinical interview: 
+Provides insights into their patterns of avoidance, worry, and emotional distress in response to perceived challenges.
+
+Assessment Results
+The GAD-7 score indicates moderate to severe anxiety, aligning with the diagnostic criteria for Generalized Anxiety Disorder (F41.1). CASI results suggest significant anxiety sensitivity, particularly regarding physical symptoms (e.g., palpitations) and social situations. Clinical findings further confirm pervasive anxiety impacting daily life and relationships.
+
+Treatment Goals
+Reduce overall anxiety levels within 8–12 weeks through evidence-based therapeutic techniques.
+Develop and reinforce coping strategies for managing symptoms during high-stress situations.
+Build confidence in social skills to enhance interactions with peers and authority figures.
+Establish a regular sleep routine to improve restfulness and energy levels.
+Alleviate physical symptoms (e.g., headaches, muscle tension) using relaxation techniques and mindfulness practices.
+
+Progress Summary
+They have shown gradual improvement since starting treatment:
+They have begun identifying and challenging anxious thought patterns using cognitive behavioral therapy (CBT) techniques.
+There is consistent practice of relaxation exercises, such as deep breathing and guided imagery, which have helped reduce physical symptoms during anxiety episodes.
+While they still struggles with avoiding stressful situations, their willingness to discuss and reflect on these patterns has improved.
+Overall, progress is steady, though more time is needed to achieve lasting changes in behavioral responses to anxiety triggers.
+
+Recommendations
+Continue weekly CBT sessions to build on cognitive restructuring and gradually expose them to anxiety-provoking scenarios in a controlled setting.
+Implement daily relaxation techniques, including diaphragmatic breathing and progressive muscle relaxation.
+Encourage family involvement through monthly family therapy sessions to provide support and foster understanding of his challenges.
+Collaborate with school staff to establish a supportive academic environment, including adjusted deadlines and a quiet space for high-stress periods like exams.
+Regularly reassess progress through follow-up evaluations using GAD-7 and other tools every four weeks.
+
+Prognosis
+With consistent adherence to therapy and engagement in recommended activities, patient’s prognosis is favorable. Gradual improvement in functional and emotional well-being is expected over the next two to three months.
+
+
+`,
+    },
+    {
+      code: "F32.1",
+      template:
+        "This is a template for the clients with Major Depressive Disorder",
+    },
+    {
+      code: "F32.1",
+      template:
+        "This is a template for the clients with Major Depressive Disorder",
+    },
+    {
+      code: "F32.1",
+      template:
+        "This is a template for the clients with Major Depressive Disorder",
+    },
+    {
+      code: "F32.1",
+      template:
+        "This is a template for the clients with Major Depressive Disorder",
+    },
+    {
+      code: "F32.1",
+      template:
+        "This is a template for the clients with Major Depressive Disorder",
+    },
+    {
+      code: "F32.1",
+      template:
+        "This is a template for the clients with Major Depressive Disorder",
     },
     {
       code: "F32.1",
@@ -26,6 +100,21 @@ $(document).ready(function () {
         "This is a template for the clients with Major Depressive Disorder",
     },
   ];
+
+  $("#patientFullName, #patientDOB, #evaluationDate, #notes").on(
+    "input",
+    function () {
+      updateView();
+    }
+  );
+
+  $("#doctorName, #pri_diagnosis, #sec_diagnosis, #notes_temp").on("change", function () {
+    changeTemp();
+  });
+
+  // $("#generatePDF").on("click", function () {
+  //   generatePDF();
+  // });
 
   function updateView() {
     const patientName = $("#patientFullName").val();
@@ -41,8 +130,10 @@ $(document).ready(function () {
 
   function changeTemp() {
     const docName = $("#doctorName").val();
-    const diag = $("#diagnosis").val();
+    const pri_diagnosis = $("#pri_diagnosis").val();
+    const sec_diagnosis = $("#sec_diagnosis").val();
     const noteTemp = $("#notes_temp").val();
+    const stampImage = $("#stamp-image");
 
     for (let diagnosis of diagnosisList) {
       if (diagnosis.code == noteTemp) {
@@ -50,56 +141,130 @@ $(document).ready(function () {
         $("#viewNotes").text(diagnosis.template);
       }
     }
+
+    // Update the stamp image if a valid doctor is selected
+    if (doctorStamps[docName]) {
+      stampImage.attr("src", doctorStamps[docName]); // Set the image source
+      stampImage.show(); // Ensure the image is visible
+    } else {
+      stampImage.hide(); // Hide the image if no valid doctor is selected
+    }
+
     // $("#viewNotes").text(noteTemp);
     $("#viewDoc").text(docName);
-    $("#viewDiag").text(diag);
+    $("#viewDiag").text(`Primary Diagnosis: ${pri_diagnosis} & Secondary Diagnosis: ${sec_diagnosis}`);
   }
-
   async function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Define content for the PDF
-    const patientFullName = $("#viewName").text();
-    const dob = $("#viewdob").text();
-    const evaluationDate = $("#viewEvDate").text();
-    const doctorName = $("#viewDoc").text();
-    const diagnosis = $("#viewDiag").text();
-    const notes = $("#notes").text();
+    // Add the logo
+    const logoUrl = "assets/logo/logo.png"; // Path to your logo file
+    const logoBase64 = await fetchImageAsBase64(logoUrl);
+    doc.addImage(logoBase64, "PNG", 115, 10, 90, 15); // Adjust position and size as needed
 
-    // Add a title
+    // Add a title below the logo
     doc.setFontSize(20);
     doc.text("Medical Report", 10, 20);
+
+    // Define content for the PDF
+    const patientFullName = $("#patientFullName").val();
+    const dob = $("#patientDOB").val();
+    const evaluationDate = $("#evaluationDate").val();
+    const doctorName = $("#doctorName").val();
+    const pri_diagnosis = $("#pri_diagnosis").val();
+    const sec_diagnosis = $("#sec_diagnosis").val();
+    const notes = $("#notes").val();
 
     // Add patient information
     doc.setFontSize(12);
     doc.text(`Patient Full Name: ${patientFullName}`, 10, 40);
-    doc.text(`DOB: ${dob}`, 10, 50);
-    doc.text(`Evaluation Date: ${evaluationDate}`, 10, 60);
+    doc.text(`DOB: ${dob}`, 10, 45);
+    doc.text(`Evaluation Date: ${evaluationDate}`, 10, 50);
 
     // Add doctor and diagnosis information
-    doc.text(`Doctor Name: ${doctorName}`, 10, 80);
-    doc.text(`Diagnosis: ${diagnosis}`, 10, 90);
+    doc.text(`Doctor Name: ${doctorName}`, 10, 60);
+    doc.text(`Primary Diagnosis: ${pri_diagnosis} & Secondary Diagnosis: ${sec_diagnosis}`, 10, 65);
 
     // Add notes
-    doc.setFontSize(14);
-    doc.text("Notes:", 10, 110);
     doc.setFontSize(12);
-    doc.text(notes, 10, 120, { maxWidth: 190 });
+    doc.text("Notes:", 10, 70);
+    doc.setFontSize(10);
+    doc.text(notes, 10, 75, { maxWidth: 190 });
 
-    // Reserve space for signature and stamp
-    doc.setLineWidth(0.5);
-    doc.line(10, 260, 200, 260); // Horizontal line
-    doc.text("Stamp", 30, 270);
-    doc.text("Signature", 150, 270);
+    // Include the stamp if available
+    const stampSrc = $("#stamp-image").attr("src");
+    if (stampSrc) {
+      const stampImage = await fetchImageAsBase64(stampSrc);
+      doc.addImage(stampImage, "PNG", 115, 270, 63, 25); // Adjust position and size as needed
+    }
 
     // Add a footer (optional)
     doc.setFontSize(10);
-    doc.text("Generated by My Medical App", 10, 290);
+    doc.text("Generated by MedGen", 10, 290);
 
     // Save the PDF
     doc.save("Medical_Report.pdf");
   }
+
+  // Helper function to fetch an image as a Base64 string
+  async function fetchImageAsBase64(imageUrl) {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  // async function generatePDF() {
+  //   const { jsPDF } = window.jspdf;
+  //   const doc = new jsPDF();
+
+  //   // Define content for the PDF
+  //   const patientFullName = $("#viewName").val();
+  //   const dob = $("#viewdob").val();
+  //   const evaluationDate = $("#viewEvDate").val();
+  //   const doctorName = $("#viewDoc").val();
+  //   const diagnosis = $("#viewDiag").val();
+  //   const notes = $("#notes").val();
+  //   console.log(notes);
+
+  //   // Add a title
+  //   doc.setFontSize(20);
+  //   doc.text("Medical Report", 10, 20);
+
+  //   // Add patient information
+  //   doc.setFontSize(12);
+  //   doc.text(`Patient Full Name: ${patientFullName}`, 10, 40);
+  //   doc.text(`DOB: ${dob}`, 10, 50);
+  //   doc.text(`Evaluation Date: ${evaluationDate}`, 10, 60);
+
+  //   // Add doctor and diagnosis information
+  //   doc.text(`Doctor Name: ${doctorName}`, 10, 80);
+  //   doc.text(`Diagnosis: ${diagnosis}`, 10, 90);
+
+  //   // Add notes
+  //   doc.setFontSize(14);
+  //   doc.text("Notes:", 10, 110);
+  //   doc.setFontSize(12);
+  //   doc.text(notes, 10, 120, { maxWidth: 190 });
+
+  //   // Reserve space for signature and stamp
+  //   doc.setLineWidth(0.5);
+  //   doc.line(10, 260, 200, 260); // Horizontal line
+  //   doc.text("Signature", 30, 270);
+  //   doc.text("Stamp", 150, 270);
+
+  //   // Add a footer (optional)
+  //   doc.setFontSize(10);
+  //   doc.text("Generated by MedGen", 10, 290);
+
+  //   // Save the PDF
+  //   doc.save("Medical_Report.pdf");
+  // }
 
   // old function
   // async function generatePDF() {
